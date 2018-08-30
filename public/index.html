@@ -88,7 +88,7 @@
                             success: function (response) {
                                 console.log(response.ruleGroups.SPEED.score);
                                 console.log(id);
-                                $('#' + id).find('#d-sk').text(response.ruleGroups.SPEED.score);
+                                $('#' + id).find('#m-sk').text(response.ruleGroups.SPEED.score);
                             }
                         });  })(urlId, data);
 
@@ -100,7 +100,7 @@
                             success: function (response) {
                                 console.log(response.ruleGroups.SPEED.score);
                                 console.log(id);
-                                $('#' + id).find('#m-sk').text(response.ruleGroups.SPEED.score);
+                                $('#' + id).find('#d-sk').text(response.ruleGroups.SPEED.score);
                             }
                         }); })(urlId, data);
 
