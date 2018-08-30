@@ -83,7 +83,7 @@
 
                         (function (id, data) {$.ajax({
                             type: "post",
-                            url: "http://localhost:3000/psi",
+                            url: "https://psi-report.herokuapp.com/psi",
                             data: data,
                             success: function (response) {
                                 console.log(response.ruleGroups.SPEED.score);
@@ -95,7 +95,7 @@
                         (function (id, data) {
                         $.ajax({
                             type: "post",
-                            url: "http://localhost:3000/psi-desk",
+                            url: "https://psi-report.herokuapp.com/psi-desk",
                             data: data,
                             success: function (response) {
                                 console.log(response.ruleGroups.SPEED.score);
