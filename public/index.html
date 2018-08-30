@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Speed Insight</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+</head>
+
+<body>
+    <h1 class="text-center">Speed Insight</h1>
+
+    <div class="container">
+        <form action="" method="POST" role="form" class="js-get-links-fm">
+            <legend>Form title</legend>
+
+            <div class="form-group">
+                <label for="">label</label>
+                <textarea name="" id="input" class="form-control" rows="5" required="required" placeholder="max 5 links, 1 link per line"></textarea>
+
+            </div>
+
+
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <br>
+    <br>
+    <div class="container">
+        <div class="form-group">
+            <legend>Results</legend>
+            <div class="row">
+                <div class="col-md-6"><label>URL</label></div>
+                <div class="col-md-3"><label id="d-sk">Desktop</label></div>
+                <div class="col-md-3"><label id="m-sk">Mobile</label></div>
+            </div>
+            <form action="" method="POST" role="form">
+                <div class="res-fm">
+                </div>
+            </form>
+
+        </div>
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Bootstrap JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script>
+            $('.js-get-links-fm').on('submit', function (e) {
+                e.preventDefault();
+                var links = $(this).find('textarea').val();
+                links = links.split('\n');
+                if (links.length > 0 && links.length < 6) {
+                    $('.res-fm').empty();
+                    for (var i = 0; i < links.length; i++) {
+                        var element = links[i];
+                        if (element == '' || element == null || element == ' ') {
+                            continue;
+                        }
+                        var data = {
+                            url: element
+                        };
+                        var urlId = 'url-id-' + i;
+                        console.log(urlId);
+                        $('.res-fm').append('<div class="form-group" id="' + urlId +
+                            '"><div class="row"><div class="col-md-6"><label id="' + element + '">' +
+                            element +
+                            '</label></div><div class="col-md-3"><label class="text-center" id="d-sk"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></label></div><div class="col-md-3"><label class="text-center" id="m-sk"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></label></div></div><hr>'
+                        );
+
+
+                        (function (id, data) {$.ajax({
+                            type: "post",
+                            url: "http://localhost:3000/psi",
+                            data: data,
+                            success: function (response) {
+                                console.log(response.ruleGroups.SPEED.score);
+                                console.log(id);
+                                $('#' + id).find('#d-sk').text(response.ruleGroups.SPEED.score);
+                            }
+                        });  })(urlId, data);
+
+                        (function (id, data) {
+                        $.ajax({
+                            type: "post",
+                            url: "http://localhost:3000/psi-desk",
+                            data: data,
+                            success: function (response) {
+                                console.log(response.ruleGroups.SPEED.score);
+                                console.log(id);
+                                $('#' + id).find('#m-sk').text(response.ruleGroups.SPEED.score);
+                            }
+                        }); })(urlId, data);
+
+                    }
+                }
+                return false;
+
+            })
+        </script>
+
+
+</body>
+
+</html>
