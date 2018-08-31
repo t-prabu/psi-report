@@ -25,13 +25,8 @@
     <div class="container">
         <form action="" method="POST" role="form" class="js-get-links-fm">
             <div class="form-group">
-                <label for="">label</label>
                 <textarea name="" id="input" class="form-control" rows="5" required="required" placeholder="max 5 links, 1 link per line"></textarea>
-
             </div>
-
-
-
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
@@ -81,28 +76,31 @@
                         );
 
 
-                        (function (id, data) {$.ajax({
-                            type: "post",
-                            url: "https://psi-report.herokuapp.com/psi",
-                            data: data,
-                            success: function (response) {
-                                console.log(response.ruleGroups.SPEED.score);
-                                console.log(id);
-                                $('#' + id).find('#m-sk').text(response.ruleGroups.SPEED.score);
-                            }
-                        });  })(urlId, data);
+                        (function (id, data) {
+                            $.ajax({
+                                type: "post",
+                                url: "https://psi-report.herokuapp.com/psi",
+                                data: data,
+                                success: function (response) {
+                                    console.log(response.ruleGroups.SPEED.score);
+                                    console.log(id);
+                                    $('#' + id).find('#m-sk').text(response.ruleGroups.SPEED.score);
+                                }
+                            });
+                        })(urlId, data);
 
                         (function (id, data) {
-                        $.ajax({
-                            type: "post",
-                            url: "https://psi-report.herokuapp.com/psi-desk",
-                            data: data,
-                            success: function (response) {
-                                console.log(response.ruleGroups.SPEED.score);
-                                console.log(id);
-                                $('#' + id).find('#d-sk').text(response.ruleGroups.SPEED.score);
-                            }
-                        }); })(urlId, data);
+                            $.ajax({
+                                type: "post",
+                                url: "https://psi-report.herokuapp.com/psi-desk",
+                                data: data,
+                                success: function (response) {
+                                    console.log(response.ruleGroups.SPEED.score);
+                                    console.log(id);
+                                    $('#' + id).find('#d-sk').text(response.ruleGroups.SPEED.score);
+                                }
+                            });
+                        })(urlId, data);
 
                     }
                 }
