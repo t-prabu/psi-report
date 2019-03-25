@@ -79,7 +79,7 @@
                         (function (id, data) {
                             $.ajax({
                                 type: "post",
-                                url: "https://psi-report.herokuapp.com/psi",
+                                url: "psi",
                                 data: data,
                                 success: function (response) {
                                     console.log(response.ruleGroups.SPEED.score);
@@ -92,7 +92,7 @@
                         (function (id, data) {
                             $.ajax({
                                 type: "post",
-                                url: "https://psi-report.herokuapp.com/psi-desk",
+                                url: "psi-desk",
                                 data: data,
                                 success: function (response) {
                                     console.log(response.ruleGroups.SPEED.score);
